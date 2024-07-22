@@ -1,0 +1,26 @@
+<!-- src/main/resources/props.xml -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- DAO -->
+    <bean id="accountDAO" class="MemoryAccountDAO"/>
+
+    <!-- Services -->
+    <bean id="accountListingService" class="AccountListingServiceImpl">
+        <constructor-arg ref="accountDAO"/>
+    </bean>
+
+    <bean id="accountCreationService" class="AccountCreationServiceImpl">
+        <constructor-arg ref="accountDAO"/>
+    </bean>
+
+    <!-- CLI -->
+    <bean id="myCLI" class="MyCLI">
+        <constructor-arg ref="accountDAO"/>
+        <constructor-arg ref="accountCreationService"/>
+        <constructor-arg ref="accountListingService"/>
+    </bean>
+
+</beans>
